@@ -1,4 +1,4 @@
-@extends('site.layouts.basico')
+@extends('site.layouts.partes.basico')
 
 @section('titulo', $titulo)
 
