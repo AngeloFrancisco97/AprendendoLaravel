@@ -24,6 +24,9 @@
                             <th>Nome</th>
                             <th>Descricao</th>
                             <th>peso</th>
+                            <th>Comprimento</th>
+                            <th>Altura</th>
+                            <th>Largura</th>
                             <th>UnidadeID</th>
                             <th></th>
                             <th></th>
@@ -37,6 +40,9 @@
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->peso }}</td>
+                                <td>{{ $produto->produtoDetalhe->comprimento ?? '' }}</td>
+                                <td>{{ $produto->produtoDetalhe->alutra ?? '' }}</td>
+                                <td>{{ $produto->produtoDetalhe->largura ?? '' }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
                                 <td><a href="{{ route('produto.show', ['produto' => $produto->id])}}">Visualizar</a></td>
                                 <td>
@@ -49,12 +55,22 @@
                                 </td>
                                 <td><a href="{{ route('produto.edit', ['produto' => $produto->id])}}">Editar</a></td>
                             </tr>
+                            <tr>
+                                <td colspan="12">
+                                    <p>Pedidos</p>
+                                    @foreach ($produto->pedidos as $pedido)
+                                        <a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id])}}">
+                                            Pedido: {{ $pedido->id }},
+                                        </a>
+                                    @endforeach
+                                </td>
+                            </tr>
                         @endforeach
 
                     </tbody>
                 </table>
                 {{ $produtos->appends($request)->links() }}
-                Exibindo {{ $produtos->count() }} produtos (de {{ $produtos->total()}} a {{ $produtos->lastItem() }})
+                Exibindo {{ $produtos->count() }} produtos de {{ $produtos->total()}} (de {{ $produtos->firstItem() }} a {{ $produtos->lastItem() }})
                     
             </div>
 
